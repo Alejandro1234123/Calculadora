@@ -1,0 +1,78 @@
+﻿@page "/calculadora"
+
+<div style="max-width: 450px; margin: 30px auto; padding: 30px; background: #000; border: 2px solid #8a2be2; border-radius: 20px; font-family: 'Consolas', monospace; color: #fff; box-shadow: 0 0 25px #8a2be2;">
+    
+    <h2 style="text-align: center; color: #bf40bf; text-shadow: 0 0 10px #8a2be2;">Calculadora</h2>
+
+    <div style="margin-bottom: 25px;">
+        <label style="color: #da70d6; font-weight: bold; display: block; margin-bottom: 8px;">OPERACIÓN:</label>
+        <select @bind="Opcion" style="width: 100%; padding: 12px; background: #1a1a1a; color: #fff; border: 1px solid #8a2be2; border-radius: 8px;">
+            <optgroup label="Cálculo" style="background: #000;">
+                <option value="Derivada">Derivada</option>
+                <option value="D. Parcial">D. Parcial</option>
+                <option value="Integral">Integral</option>
+            </optgroup>
+            <optgroup label="Integrales Triple (Volumen)" style="background: #000;">
+                <option value="Cubo">Cubo</option>
+                <option value="Paralelepipedo">Paralelepípedo</option>
+                <option value="Cilindro">Cilindro</option>
+                <option value="Cono">Cono</option>
+                <option value="Piramide">Pirámide</option>
+            </optgroup>
+            <optgroup label="Integrales Doble (Áreas)" style="background: #000;">
+                <option value="Cuadrado">Cuadrado</option>
+                <option value="Rectangulo">Rectángulo</option>
+                <option value="Triangulo">Triángulo</option>
+            </optgroup>
+        </select>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 15px;">
+        <div>
+            <label style="color: #da70d6; font-size: 13px; font-weight: bold;">
+                @(Opcion == "Derivada" ? "Distancia:" : (Opcion == "Cilindro" || Opcion == "Cono" ? "Radio:" : "Largo / Base:"))
+            </label>
+            <div style="display: flex; gap: 5px;">
+                <input type="number" @bind="Val1" style="flex: 3; padding: 12px; background: #111; color: #00ff00; border: 1px solid #333; border-radius: 8px;" />
+                @if (Opcion == "Derivada") {
+                    <select @bind="UnidadDist" style="flex: 1; background: #1a1a1a; color: #fff; border: 1px solid #8a2be2;">
+                        <option value="m">m</option><option value="km">km</option>
+                    </select>
+                }
+            </div>
+        </div>
+
+        @if (Opcion != "Integral") {
+            <div>
+                <label style="color: #da70d6; font-size: 13px; font-weight: bold;">
+                    @(Opcion == "Derivada" ? "Tiempo:" : (Opcion == "D. Parcial" ? "Grados (°):" : "Ancho / Altura:"))
+                </label>
+                <div style="display: flex; gap: 5px;">
+                    <input type="number" @bind="Val2" style="flex: 3; padding: 12px; background: #111; color: #00ff00; border: 1px solid #333; border-radius: 8px;" />
+                    @if (Opcion == "Derivada") {
+                        <select @bind="UnidadTiempo" style="flex: 1; background: #1a1a1a; color: #fff; border: 1px solid #8a2be2;">
+                            <option value="s">s</option><option value="h">h</option>
+                        </select>
+                    }
+                </div>
+            </div>
+        }
+
+        @if (Opcion == "Cubo" || Opcion == "Paralelepipedo" || Opcion == "Piramide") {
+            <div>
+                <label style="color: #da70d6; font-size: 13px; font-weight: bold;">Profundidad / Eje Z:</label>
+                <input type="number" @bind="Val3" style="width: 100%; padding: 12px; background: #111; color: #00ff00; border: 1px solid #333; border-radius: 8px;" />
+            </div>
+        }
+    </div>
+
+    <div style="display: flex; gap: 10px; margin-top: 30px;">
+        <button @onclick="EjecutarCalculo" style="flex: 2; padding: 15px; background: #8a2be2; color: white; border: none; border-radius: 10px; cursor: pointer; font-weight: bold;">CALCULAR</button>
+        <button @onclick="Limpiar" style="flex: 1; padding: 15px; background: #1a1a1a; color: #8a2be2; border: 1px solid #8a2be2; border-radius: 10px; cursor: pointer;">BORRAR</button>
+    </div>
+
+    <div style="margin-top: 25px; text-align: center; background: #0a0a0a; padding: 20px; border-radius: 15px; border: 1px dashed #8a2be2;">
+        <span style="color: #da70d6; font-size: 11px;">RESULTADO:</span>
+        <h2 style="margin: 5px 0; color: #00ff00; font-family: 'Courier New'; font-size: 32px;">@Resultado</h2>
+    </div>
+</div>
