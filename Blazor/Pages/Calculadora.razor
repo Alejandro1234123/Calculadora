@@ -1,4 +1,5 @@
 ﻿@page "/"
+@using System.Globalization
 
 <div style="max-width: 450px; margin: 30px auto; padding: 30px; background: #000; border: 2px solid #8a2be2; border-radius: 20px; font-family: 'Consolas', monospace; color: #fff; box-shadow: 0 0 25px #8a2be2;">
     
@@ -69,6 +70,8 @@
 
     <div style="margin-top: 25px; text-align: center; background: #0a0a0a; padding: 20px; border-radius: 15px; border: 1px dashed #8a2be2;">
         <span style="color: #da70d6; font-size: 11px;">RESULTADO:</span>
-        <h2 style="margin: 5px 0; color: #00ff00; font-family: 'Courier New'; font-size: 32px;">@Resultado</h2>
+        <h2 style="margin: 5px 0; color: #00ff00; font-family: 'Courier New'; font-size: 28px;">
+            @Resultado.ToString("N4", CultureInfo.InvariantCulture)
+        </h2>
     </div>
 </div>
